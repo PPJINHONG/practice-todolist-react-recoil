@@ -9,16 +9,26 @@ interface Iform{
     password:number,
     password1:number,
     email:string,
+    formerros?:string
 }
 
 function Todolist(){
-    const {register,handleSubmit,formState:{errors}} = useForm<Iform>({
+    const {register,handleSubmit,formState:{errors},setError} = useForm<Iform>({
         defaultValues:{
             email:"@naver.com"
         }
     })
-    const onvalid = (data: any)=>{
-        console.log(data);
+    const onvalid= (data : Iform)=>{
+        if(data.password !== data.password1)
+        return setError("password1",{
+            message:"password are not same",
+        },
+        {
+            shouldFocus:true
+        }
+        
+        )
+        // setError("formerros",{message:"form erros!"})
     }
     console.log(errors);
  
@@ -37,7 +47,9 @@ function Todolist(){
         <span>{errors.lastname?.message}</span>
         <input {...register("username",{
             required:"write here",
-            minLength:{value:3,message:"too short"}})} 
+            minLength:{value:3,message:"too short"},   
+            validate:(value)=> value.includes("jinhong") ? "no jinhong allowed" : true
+                })} 
             placeholder="username" />
         <span>{errors.username?.message}</span>
         <input {...register("password",{
@@ -60,7 +72,7 @@ function Todolist(){
        
         
         <button>add</button>
-
+        <span>{errors.formerros?.message}</span>
        </form>
        </>
     )
