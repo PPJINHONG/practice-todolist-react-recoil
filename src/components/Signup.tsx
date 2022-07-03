@@ -1,7 +1,28 @@
 import { type } from "os";
 import {useForm} from "react-hook-form"
-
-
+import styled from "styled-components";
+const Container = styled.div`
+ padding: 0px 20px;
+ max-width: 500px;
+ margin: auto;
+ 
+ `
+const Header = styled.header`
+ height: 15vh;
+ display: block;
+ justify-content: center;
+ margin-top:15px;
+ padding-top: 30px;
+`
+const Title = styled.h1`
+font-size :30px;
+color: ${(props) => props.theme.textcolor};
+text-align: center;
+`
+const Input = styled.input`
+margin: 15px 0px 0px 0px;
+height: 30px;
+`
 interface Iform{
     firstname:string,
     lastname:string,
@@ -12,13 +33,14 @@ interface Iform{
     formerros?:string
 }
 
-function Todolist(){
-    const {register,handleSubmit,formState:{errors},setError} = useForm<Iform>({
+function Signup(){
+    const {register,handleSubmit,formState:{errors},setError,setValue,reset} = useForm<Iform>({
         defaultValues:{
             email:"@naver.com"
         }
     })
-    const onvalid= (data : Iform)=>{
+   
+    const onvalid= (data : Iform)=>{    //마지막 호출 (handlesubmit객체를 씀)
         if(data.password !== data.password1)
         return setError("password1",{
             message:"password are not same",
@@ -28,41 +50,47 @@ function Todolist(){
         }
         
         )
-        // setError("formerros",{message:"form erros!"})
+        setValue("firstname",""); //https://react-hook-form.com/api/useform/setvalue
+        reset();
+        console.log(data);        
+        // setError("formerros",{message:"form erros!"}) //폼전체 막기 
     }
     console.log(errors);
  
     return (
-       <>
+       <Container>
+           <Header>
+       <Title>Signup</Title>
+       </Header>
        <form style={{display:"flex" , flexDirection:"column"}} onSubmit={handleSubmit(onvalid)}>
-        <input {...register("firstname",{
+        <Input {...register("firstname",{
             required:"write here",
             minLength:{value:3,message:"too short"}})} 
             placeholder="firstname~" />
         <span>{errors.firstname?.message}</span>
-        <input {...register("lastname",{
+        <Input {...register("lastname",{
             required:"write here",
             minLength:{value:3,message:"too short"}})} 
             placeholder="lastname~" />
         <span>{errors.lastname?.message}</span>
-        <input {...register("username",{
+        <Input {...register("username",{
             required:"write here",
             minLength:{value:3,message:"too short"},   
             validate:(value)=> value.includes("jinhong") ? "no jinhong allowed" : true
                 })} 
             placeholder="username" />
         <span>{errors.username?.message}</span>
-        <input {...register("password",{
+        <Input {...register("password",{
             required: {value:true,message:"sex"} , 
             minLength:{value:3,message:"too short"}})} 
             placeholder="pw" />
         <span>{errors.password?.message}</span>
-        <input {...register("password1",{
+        <Input {...register("password1",{
             required:"write here",
             minLength:{value:3,message:"too short"}})} 
             placeholder="pwck" />
         <span>{errors.password1?.message}</span> 
-        <input {...register("email",{
+        <Input {...register("email",{
             required:"write here",  
             pattern:{value: /^[A-Za-z0-9._%+-]+@naver\.com$/,
                     message: "Only naver.com emails allowed"},
@@ -74,8 +102,9 @@ function Todolist(){
         <button>add</button>
         <span>{errors.formerros?.message}</span>
        </form>
-       </>
+       <ul></ul>
+       </Container>
     )
 
 }
-export default Todolist;
+export default Signup;

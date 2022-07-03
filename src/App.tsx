@@ -2,7 +2,8 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { whitetheme } from './theme';
 import { ThemeProvider } from 'styled-components';
-import Todolist from './Todolist';
+import Todolist from './components/Signup';
+import Router from './Router';
 
 const Globalstyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -71,7 +72,7 @@ function App() {
     <>
     <ThemeProvider theme={whitetheme}>
     <Globalstyle />
-    <Todolist />
+    <Router />
     </ThemeProvider>
     </>
   )
