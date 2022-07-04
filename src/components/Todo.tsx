@@ -1,11 +1,14 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { todostate } from "../atom";
+import { todoselector, todostate } from "../atom";
 import Createtodo from "./Createtodo";
 import Todolist from "./Todolist";
 
 function Todo(){
     const todos = useRecoilValue(todostate);
-    console.log(todos)
+    const selectoroutput = useRecoilValue(todoselector);
+    console.log(todos);
+    console.log(selectoroutput);
+    
 
     return(
         

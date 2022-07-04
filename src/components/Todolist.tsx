@@ -8,15 +8,19 @@ function Todolist({text,category,id}:Itodo){
         const {currentTarget : {name}} = event;
         
 
-        settodos((oldtodos)=>{
+        settodos((oldtodos) => {
             const targetindex = oldtodos.findIndex((todo)=>todo.id===id);
             const oldtodo = oldtodos[targetindex];
-            const newtodo = {id,text,category : name};
+            const newtodo = {id,text,category : name as Itodo['category']};
+            console.log(newtodo);
+            console.log(id,text);
             
-            console.log(oldtodo , newtodo);
-            return oldtodos; 
-        })
-
+            return [
+                ...oldtodos.slice(0,targetindex),
+                newtodo,
+                ...oldtodos.slice(targetindex+1)]; 
+        });
+       
 
 
     };
