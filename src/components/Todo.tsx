@@ -1,54 +1,21 @@
-import { useForm } from "react-hook-form";
-import { atom, useRecoilState } from "recoil";
-
-interface Iform { 
-    todo:string;
-}
-
-const todostate = atom<Itodo[]>({
-    key : "todo",
-    default : [],
-});
-
-interface Itodo {
-    text: string;
-    id:number;
-    category: "TO_DO" | "DOING" | "DONE";
-  }
+import { useRecoilState, useRecoilValue } from "recoil";
+import { todostate } from "../atom";
+import Createtodo from "./Createtodo";
+import Todolist from "./Todolist";
 
 function Todo(){
-    const [todos,settodos] = useRecoilState(todostate);
+    const todos = useRecoilValue(todostate);
+    console.log(todos)
 
-   const {register,handleSubmit,setValue} = useForm<Iform>();
-   const handlevalid = ({todo} : Iform) => {
-       console.log("add todo",todo)
-       setValue("todo","");
-       settodos((oldtodo) => [...oldtodo,{id:Date.now(),text:todo,category:"TO_DO"}]);
-   };
-   console.log(todos);
     return(
         
-            <div>
-              <h1>To Dos</h1>
-              <hr />
-              <form onSubmit={handleSubmit(handlevalid)}>
-              
-                <input
-                  {...register("todo", {
-                    required: "Please write a To Do",
-                  })}
-                  placeholder="Write a to do"
-                />
-                <button>Add</button>
-
-              </form>
+            <>
+                <Createtodo />
               <ul>
-                  {todos.map(a=>(<li key={a.id}>
-                    {a.text }
-                  </li>))}
-            
+                  {/* {todos.map(a=>(<Todolist text={a.text} category={a.category} id={a.id}/>))} */}
+                    {todos.map(a=>(<Todolist key={a.id}{...a}/>))}
               </ul>
-            </div>
+            </>
           );
           
     
