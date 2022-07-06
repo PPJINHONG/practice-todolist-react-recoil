@@ -3,15 +3,22 @@ import { atom ,selector} from "recoil";
 export interface Itodo {
     text: string;
     id:number;
-    category: "TO_DO" | "DOING" | "DONE" ;
+    category:Categories;
   }
+
+export enum Categories {
+  "TO_DO" = "TO_DO",
+  "DOING" ="DOING",
+  "DONE" = "DONE"
+};
+
 export const todostate = atom<Itodo[]>({
     key : "todo",
     default : [],
 });
-export const categorystate = atom({
+export const categorystate = atom<Categories>({
     key: "category",
-    default : "TO_DO",  
+    default : Categories.TO_DO,  
 })
 
 export const todoselector = selector({
