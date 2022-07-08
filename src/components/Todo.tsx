@@ -9,8 +9,9 @@ const Container= styled.div`
 margin: auto;
 align-items:center;
 max-width:600px;
-color : ${a=>a.theme.textcolor}
+color : ${a=>a.theme.textcolor};
 `
+
 const Form = styled.form`
 width: 100%;
 margin: auto;
