@@ -1,7 +1,8 @@
 
 <h2>practice recoil // react - typescript</h2>
 
-<h3>website : "https://PPJINHONG.github.io/practice-todolist-reactuseform"</h2>
+<h3>website : "https://PPJINHONG.github.io/practice-todolist-react-recoil""</h2>
+
 
 <h2>use to react,recoil libary :</h2>
 
