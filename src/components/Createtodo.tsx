@@ -1,7 +1,33 @@
+import { Component } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import styled from "styled-components";
 import { categorystate, todostate } from "../atom";
 
+const Header = styled.h1`
+width: 100%;
+height: 50px;
+text-align: center;
+margin-top: 50px;
+`
+const Form = styled.form`
+width: 90%;
+margin: auto;
+`
+const Input = styled.input`
+width: 70%;
+height: 30px;
+border: 1px solid ${a=>a.theme.bordercolor};
+background-color: white;
+
+`
+const Button = styled.button`
+width: 30%;
+height: 30px;
+border: 1px solid ${a=>a.theme.bordercolor};
+background-color: white;
+
+`
 interface Iform { 
     todo:string;
 }
@@ -20,18 +46,18 @@ function Createtodo(){
 
     return (
         <>
-        <h1>To Dos</h1>
-        <hr />
-        <form onSubmit={handleSubmit(handlevalid)}>
-        
-          <input
+            <Header>Todo list</Header>
+     
+
+        <Form onSubmit={handleSubmit(handlevalid)}>
+          <Input
             {...register("todo", {
               required: "Please write a To Do",
             })}
             placeholder="Write a to do"
           />
-          <button>Add</button>
-        </form>
+          <Button>Add</Button>
+        </Form>
       </>
     )
 }
